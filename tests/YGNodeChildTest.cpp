@@ -32,3 +32,14 @@ TEST(YogaTest, reset_layout_when_child_removed) {
 
   YGNodeFreeRecursive(root);
 }
+
+
+#if GTEST_HAS_DEATH_TEST
+TEST(YogaDeathTest, cannot_add_child_past_end_of_child_array) {
+  const YGNodeRef root = YGNodeNew();
+  const YGNodeRef root_child0 = YGNodeNew();
+  ASSERT_THROW(YGNodeInsertChild(root, root_child0, 2), std::logic_error);
+  YGNodeFree(root_child0);
+  YGNodeFreeRecursive(root);
+}
+#endif

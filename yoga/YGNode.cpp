@@ -204,6 +204,9 @@ void YGNode::replaceChild(YGNodeRef oldChild, YGNodeRef newChild) {
 }
 
 void YGNode::insertChild(YGNodeRef child, uint32_t index) {
+  YGAssertWithNode(
+      this, index < children_.size() + 1,
+      "Cannot insert a child past the end of the child vector");
   children_.insert(children_.begin() + index, child);
 }
 
@@ -228,6 +231,9 @@ bool YGNode::removeChild(YGNodeRef child) {
 }
 
 void YGNode::removeChild(uint32_t index) {
+  YGAssertWithNode(
+      this, index < children_.size(),
+      "Cannot remove a child past the end of the child vector");
   children_.erase(children_.begin() + index);
 }
 
